@@ -112,9 +112,11 @@ const SlidingBanner = () => {
                                         
 
                                             <div className="flex gap-3 md:gap-4">
+                                                <Link to={"/" + item?.media_type + "/" + item.id}>
                                                 <button className="bg-pink-600 hover:bg-pink-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center gap-2 transition-colors text-sm md:text-base">
                                                     <FaPlay size={16} /> Watch Now
                                                 </button>
+                                                </Link>
 
                                                 <Link to={"/" + item?.media_type + "/" + item.id}>
                                                 <button className="bg-gray-800 hover:bg-gray-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-full flex items-center gap-2 transition-colors text-sm md:text-base">
