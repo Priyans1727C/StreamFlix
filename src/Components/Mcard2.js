@@ -29,7 +29,7 @@ const MovieCard = ({ data, trending, index, media_type }) => {
                         }
 
                     </div>
-                    <div className="absolute font-nunito w-full  rounded-3xl bg-[#1a1927] block text-white font-bold  h-auto group-hover:h-[7em] leading-[1.2em] duration-500 overflow-hidden  ">
+                    <div className="absolute font-nunito w-full  rounded-3xl bg-[#1a1927] block text-white font-bold  h-[0px] group-hover:h-[7em] leading-[1.2em] duration-500 overflow-hidden  ">
                         {/* <div w-full py-4 bg-yellow-400 font-bold text-black> */}
                         <div className=" pt-2 w-full px-[1.5em] text-white z-[2] absolute  font-nunito flex flex-col    ">
                             <div className="  h-fit w-full">

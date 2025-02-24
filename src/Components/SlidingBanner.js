@@ -3,6 +3,7 @@ import { FaPlay, FaInfoCircle, FaChevronLeft, FaChevronRight } from 'react-icons
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import Loader from '../plugins/loading';
 
 
 const SlidingBanner = () => {
@@ -40,7 +41,7 @@ const SlidingBanner = () => {
 
 
     if (status === "loading")
-        return <div>Loading...</div>;
+        return <div><Loader/></div>;
     if (status === "failed")
         return <div>Error: {error}</div>;
 
@@ -95,14 +96,16 @@ const SlidingBanner = () => {
                                                 HD
                                             </span>
                                             <span className="bg-green-600 text-white px-2 py-0.5 rounded">
-                                                {item.original_language}
+                                                {item.original_language? item.original_language.charAt(0).toUpperCase() +item.original_language.slice(1).toLowerCase():''}
                                             </span>
-                                            <span className="border border-blue-400 text-blue-400 px-2 py-0.5 rounded">
+
+
+                                            {/* <span className="border border-blue-400 text-blue-400 px-2 py-0.5 rounded">
                                                 {item.original_language}
                                             </span>
                                             <span className="text-gray-400">
                                                 {item.totalEpisodes}
-                                            </span>
+                                            </span> */}
                                         </div>
                                         <p className="text-gray-300 mb-4 md:mb-8 line-clamp-2 md:line-clamp-3 text-sm md:text-base">
                                             {item.overview}

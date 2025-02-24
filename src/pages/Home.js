@@ -4,6 +4,7 @@ import { fetchMovies } from "../redux/movieSlice";
 import SlidingBanner from "../Components/SlidingBanner";
 
 import HorizontalCarding from '../Components/HorizontalCarding'
+import Loader from '../plugins/loading';
 
 
 const Home = () => {
@@ -24,7 +25,7 @@ const Home = () => {
   }, [dispatch]);
 
   if (status === "loading")
-        return <div>Loading...</div>;
+        return <div><Loader/></div>;
   if (status === "failed") 
         return <div>Error: {error}</div>;
 
