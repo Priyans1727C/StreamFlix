@@ -3,9 +3,6 @@ import { LuPlay, LuCalendar, LuEarth, LuStar, LuUsers, LuTrendingUp, LuAward, Lu
 import { useParams } from 'react-router-dom'
 
 import { useFetchDetails, useFetchDetailsMetaData } from '../api/movieService';
-
-import moment from 'moment'
-import Divider from '../Components/Divider'
 import HorizontalCarding from '../Components/HorizontalCarding'
 import VideoPlayer from '../Components/VideoPlayer'
 
