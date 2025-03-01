@@ -1,13 +1,15 @@
 import axiosInstance from '../api/axiosInstance';
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate  } from 'react-router-dom';
 import MovieCard from '../Components/Mcard2';
 
 const ExplorePage = () => {
   const params = useParams();
   const [pageNo, setPageNo] = useState(1);
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
+  
   console.log('params', params.explore);
 
   // Using useCallback to memoize fetchData
@@ -39,11 +41,19 @@ const ExplorePage = () => {
   }, [params.explore]);
 
   useEffect(() => {
+    if (params.explore !== "movie" && params.explore !== "tv") {
+        navigate("/error404"); // Redirect to home if invalid
+    }
+    }, [params.explore, navigate]);
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+
 
   return (
     <div className='py-16'>

@@ -7,13 +7,13 @@ import DetailsPage from './pages/DetailsPage2';
 
 
 
+
 function App() {
   return (
     <>
     {/* <DetailsPage/> */}
       <main className='pb-14 lg:pb-0'>
         <Router>
-          
           <Header />
           <AppRoutes />
         </Router>
