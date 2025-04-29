@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # Development service with hot-reloading
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: streamflix-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_TMDB_API_KEY=04dd83b0ea72ce4a91c870b6a87e853d
+    env_file:
+      - .env
+    command: npm start
+
