@@ -70,8 +70,11 @@ pipeline {
             echo 'Build failed! Check the logs for more information.'
         }
         always {
-            // Clean up old Docker images to save disk space
-            sh 'docker image prune -f'
+            // Ensure cleanup runs within a node context
+            node {
+                // Clean up old Docker images to save disk space
+                sh 'docker image prune -f'
+            }
         }
     }
 }
