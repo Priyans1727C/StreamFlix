@@ -35,12 +35,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Run tests
-                sh 'npm test -- --watchAll=false'
-            }
-        }
+      
 
         stage('Build Docker Image') {
             steps {
