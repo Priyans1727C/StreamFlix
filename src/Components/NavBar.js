@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from "react-icons/fa";
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import userIcon from '../assets/user.png'
 
 
@@ -17,7 +17,7 @@ const Navbar = () => {
         if (searchInput) {
             navigate(`/search?q=${searchInput}`)
         }
-    }, [searchInput])
+    }, [searchInput, navigate])
 
     const handleSubmit = (e) => {
         e.preventDefault()

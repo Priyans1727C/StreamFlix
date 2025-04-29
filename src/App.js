@@ -3,7 +3,6 @@ import './App.css';
 import Header from './Components/Header';
 import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
-import DetailsPage from './pages/DetailsPage2';
 
 
 

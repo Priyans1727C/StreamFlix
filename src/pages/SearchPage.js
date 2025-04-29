@@ -36,8 +36,7 @@ const SearchPage = () => {
       setData([])
       fetchData()
     }
-  },[location?.search])
-
+  },[location?.search, fetchData, query])
 
   const handleScroll = ()=>{
     if((window.innerHeight + window.scrollY ) >= document.body.offsetHeight){
@@ -49,7 +48,7 @@ const SearchPage = () => {
     if(query){
       fetchData()
     }
-  },[page])
+  },[page, fetchData, query])
 
   useEffect(()=>{
     window.addEventListener('scroll',handleScroll)

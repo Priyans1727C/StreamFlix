@@ -10,7 +10,7 @@ import Error404 from '../plugins/error'; ;
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { trending, airingToday, onTheAir, popular, topRated, status, error } = useSelector((state) => {
+  const { trending, airingToday, onTheAir, popular, topRated, status } = useSelector((state) => {
     console.log("Redux State:", state.movies);
     return state.movies;
   });

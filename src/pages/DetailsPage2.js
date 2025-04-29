@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LuPlay, LuCalendar, LuEarth, LuStar, LuUsers, LuTrendingUp, LuAward, LuClock, LuFilm, LuHeart, LuShare2, LuBookmarkPlus, LuMessageCircle, LuTv, LuTextSelect, LuFlag, LuEye } from 'react-icons/lu';
+import { LuPlay, LuCalendar, LuEarth, LuStar, LuUsers, LuTrendingUp, LuAward, LuClock, LuFilm, LuHeart, LuShare2, LuBookmarkPlus, LuTv, LuTextSelect, LuFlag, LuEye } from 'react-icons/lu';
 import { useParams } from 'react-router-dom'
 
 import { useFetchDetails, useFetchDetailsMetaData } from '../api/movieService';
@@ -56,8 +56,6 @@ const DetailsPage = () => {
   const { data: castData } = useFetchDetails(`/${params?.explore}/${params?.id}/credits`)
   const { data: similarData } = useFetchDetailsMetaData(`/${params?.explore}/${params?.id}/similar`)
   const { data: recommendationData } = useFetchDetailsMetaData(`/${params?.explore}/${params?.id}/recommendations`)
-  const duration = (data?.runtime / 60)?.toFixed(1)?.split(".")
-  const writer = castData?.crew?.filter(el => el?.job === "Writer")?.map(el => el?.name)?.join(", ")
 
   const [playVideo, setPlayVideo] = useState(false)
   const [playVideoId, setPlayVideoId] = useState("")
@@ -67,8 +65,6 @@ const DetailsPage = () => {
     setPlayVideo(true)
 
   }
-
-  const posterUrl = `https://image.tmdb.org/t/p/w500${movieData.poster_path}`;
 
 
   return (

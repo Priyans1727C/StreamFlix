@@ -44,7 +44,7 @@ export const useFetchDetailsMetaData = (endpoint) => {
 
   useEffect(() => {
     fetchData()
-  }, [endpoint])
+  }, [fetchData])
 
   return { data, loading }
 }

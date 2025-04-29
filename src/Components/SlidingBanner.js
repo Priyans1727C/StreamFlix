@@ -36,7 +36,7 @@ const SlidingBanner = () => {
         }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [nextSlide]);
 
 
 
