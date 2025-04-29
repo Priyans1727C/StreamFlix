@@ -2,26 +2,23 @@ pipeline {
     agent any
     
     environment {
-        // Application name
-        APP_NAME = "StreamFlix"
-        // Node version to use
-        NODE_VERSION = "19"
+        // Docker image name
+        DOCKER_IMAGE = "streamflix-dev"
+        // Version tag (using Jenkins BUILD_NUMBER for versioning)
+        VERSION = "${env.BUILD_NUMBER}"
+        // Docker Hub credentials (if needed)
+        DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
     }
     
     stages {
         stage('Checkout') {
             steps {
+                // Configure Git to skip SSL verification before checkout
+                sh 'git config --global http.sslVerify false'
                 // Get code from repository
                 checkout scm
-                echo "Checked out the code from Git repository"
-            }
-        }
-        
-        stage('Setup Node.js') {
-            steps {
-                // Setup Node.js environment using nvm or the available tool
-                sh 'node -v'
-                echo "Using Node.js for build"
+                // Reset Git SSL verification for security
+                sh 'git config --global http.sslVerify true'
             }
         }
         
@@ -47,23 +44,19 @@ pipeline {
             }
         }
         
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                // Build the React application
-                sh 'npm run build'
-                echo "Application built successfully"
+                // Build Docker image using Dockerfile.dev
+                sh "docker build -t ${DOCKER_IMAGE}:${VERSION} -f Dockerfile.dev ."
+                sh "docker tag ${DOCKER_IMAGE}:${VERSION} ${DOCKER_IMAGE}:latest"
             }
         }
         
         stage('Deploy to Development') {
             steps {
-                // Archive the build artifacts
-                sh 'tar -czf streamflix-app.tar.gz build/'
-                
-                // Example of where to copy the build files (adjust as needed)
-                sh 'mkdir -p /var/www/html/streamflix-dev || true'
-                sh 'cp -r build/* /var/www/html/streamflix-dev/ || echo "Deployment requires proper permissions"'
-                
+                // Deploy using docker-compose
+                sh 'docker-compose -f docker-compose.yml down || true'
+                sh "DOCKER_IMAGE=${DOCKER_IMAGE} VERSION=${VERSION} docker-compose -f docker-compose.yml up -d"
                 echo "Deployed to development environment"
             }
         }
@@ -77,8 +70,8 @@ pipeline {
             echo 'Build failed! Check the logs for more information.'
         }
         always {
-            // Clean up workspace
-            cleanWs()
+            // Clean up old Docker images to save disk space
+            sh 'docker image prune -f'
         }
     }
 }
