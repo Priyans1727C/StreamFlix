@@ -71,7 +71,7 @@ pipeline {
         }
         always {
             // Ensure cleanup runs within a node context
-            node {
+            node('') { // Use an empty string for the default agent
                 // Clean up old Docker images to save disk space
                 sh 'docker image prune -f'
             }
