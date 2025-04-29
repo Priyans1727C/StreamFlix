@@ -1,15 +1,13 @@
 pipeline {
     agent any
-    
+
     environment {
         // Docker image name
         DOCKER_IMAGE = "streamflix-dev"
         // Version tag (using Jenkins BUILD_NUMBER for versioning)
         VERSION = "${env.BUILD_NUMBER}"
-        // Docker Hub credentials (if needed)
-        DOCKER_HUB_CREDS = credentials('docker-hub-credentials')
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
@@ -21,14 +19,14 @@ pipeline {
                 sh 'git config --global http.sslVerify true'
             }
         }
-        
+
         stage('Install Dependencies') {
             steps {
                 // Install Node.js dependencies
                 sh 'npm install'
             }
         }
-        
+
         stage('Code Quality') {
             steps {
                 // Run linting if configured
@@ -36,14 +34,14 @@ pipeline {
                 sh 'npm run lint || echo "No lint configuration found, skipping"'
             }
         }
-        
+
         stage('Test') {
             steps {
                 // Run tests
                 sh 'npm test -- --watchAll=false'
             }
         }
-        
+
         stage('Build Docker Image') {
             steps {
                 // Build Docker image using Dockerfile.dev
@@ -51,7 +49,7 @@ pipeline {
                 sh "docker tag ${DOCKER_IMAGE}:${VERSION} ${DOCKER_IMAGE}:latest"
             }
         }
-        
+
         stage('Deploy to Development') {
             steps {
                 // Deploy using docker-compose
@@ -61,7 +59,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         success {
             echo 'Build successful! The StreamFlix application is now deployed to the development environment.'
