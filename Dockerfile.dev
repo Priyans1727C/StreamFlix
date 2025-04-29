@@ -9,7 +9,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy all files
+# Copy all files except those excluded by .dockerignore
 COPY . .
 
 # Expose port 3000
