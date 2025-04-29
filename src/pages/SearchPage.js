@@ -1,5 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import MovieCard from "../Components/Mcard2";
 
@@ -11,32 +11,27 @@ const SearchPage = () => {
 
   const query = location?.search?.slice(3)
 
-  const fetchData = async()=>{
+  const fetchData = useCallback(async () => {
     try {
-        const response = await axiosInstance.get(`search/multi`,{
-          params : {
-            query :location?.search?.slice(3),
-            page : page
-          }
-        })
-        setData((preve)=>{
-          return[
-              ...preve,
-              ...response.data.results
-          ]
-        })
+      const response = await axiosInstance.get(`search/multi`, {
+        params: {
+          query: location?.search?.slice(3),
+          page: page
+        }
+      });
+      setData((prev) => [...prev, ...response.data.results]);
     } catch (error) {
-        console.log('error',error)
+      console.log('error', error);
     }
-  }
+  }, [location?.search, page]);
 
-  useEffect(()=>{
-    if(query){
-      setPage(1)
-      setData([])
-      fetchData()
+  useEffect(() => {
+    if (query) {
+      setPage(1);
+      setData([]);
+      fetchData();
     }
-  },[location?.search, fetchData, query])
+  }, [location?.search, fetchData, query]);
 
   const handleScroll = ()=>{
     if((window.innerHeight + window.scrollY ) >= document.body.offsetHeight){

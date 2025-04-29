@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FaPlay, FaInfoCircle, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
@@ -18,11 +18,11 @@ const SlidingBanner = () => {
     const [currentIndex, setCurrentIndex] = React.useState(0);
 
 
-    const nextSlide = () => {
+    const nextSlide = useCallback(() => {
         setCurrentIndex((prevIndex) =>
             prevIndex === bannerData.length - 1 ? 0 : prevIndex + 1
         );
-    };
+    }, [bannerData]);
 
     const prevSlide = () => {
         setCurrentIndex((prevIndex) =>

@@ -31,20 +31,20 @@ export const useFetchDetailsMetaData = (endpoint) => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const fetchData = async () => {
-    try {
-      setLoading(true)
-      const response = await axiosInstance.get(endpoint);
-      setLoading(false)
-      setData(response.data.results)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const response = await axiosInstance.get(endpoint);
+        setLoading(false)
+        setData(response.data.results)
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+
     fetchData()
-  }, [fetchData])
+  }, [endpoint])
 
   return { data, loading }
 }
